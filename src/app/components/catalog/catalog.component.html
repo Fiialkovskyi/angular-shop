@@ -1,0 +1,24 @@
+<div class="catalog">
+    <div class="container">
+        <div *ngIf="!loading; else loadingBlock" >
+            <div class="catalog__wrapper" *ngIf="catalogItems; else noItemsBlock">
+                <div class="catalog__card" *ngFor="let item of catalogItems">
+                    <img class="card__image" src="/assets/Product-Coming-Soon-image.jpg">
+                    <div class="card__info">
+                        <h3 class="info__title">{{item.name}}</h3>
+                        <div class="info__price">Price: ${{item.price | number: '1.2-2'}}</div>
+                        <div class="info__stock">In stock: {{item.available}}</div>
+                    </div>
+                    <button class="card__btn" [disabled]="!item.available" (click)="addToCart(item.id)">{{item.available ? 'Add to cart' : 'Out of stock'}}</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #noItemsBlock>
+            No items in catalog
+        </ng-template>
+    
+        <ng-template #loadingBlock>
+            Loading...
+        </ng-template>
+    </div>
+</div>

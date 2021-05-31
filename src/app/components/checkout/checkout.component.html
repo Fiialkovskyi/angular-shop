@@ -1,0 +1,61 @@
+<div class="checkout">
+    <div class="container" *ngIf="cartItems.length; else emptyCart">
+        <div class="checkout__details">
+            <h2 class="details__title">Order details:</h2>
+                <div *ngFor="let item of cartItems">
+                    <div class="cart__item"><h3 class="item__title">{{item.name}}</h3><div>x{{item.qty}}</div></div>
+                </div>
+                
+        </div>
+        <form class="checkout__form" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form__control">
+                <label>Name</label>
+                <input type="text" placeholder="Phone" formControlName="name">
+
+                <div class="control__validation" *ngIf="form.controls.name.invalid && form.controls.name.touched">
+                    <small *ngIf="form.controls.name.errors?.required">Please enter a value</small>
+                    <small *ngIf="form.controls.name.errors?.minlength">Name must be at least 2 characters long.</small>
+                </div>
+            </div>
+
+            <div class="form__control">
+                <label>Second name</label>
+                <input type="text" placeholder="Phone" formControlName="secondName">
+
+                <div class="control__validation" *ngIf="form.controls.secondName.invalid && form.controls.secondName.touched">
+                    <small *ngIf="form.controls.secondName.errors?.required">Please enter a value</small>
+                    <small *ngIf="form.controls.secondName.errors?.minlength">Name must be at least 2 characters long.</small>
+                </div>
+            </div>
+
+            <div class="form__control">
+                <label>Phone</label>
+                <input type="text" placeholder="Phone" formControlName="phone">
+
+                <div class="control__validation" *ngIf="form.controls.phone.invalid && form.controls.phone.touched">
+                    <small *ngIf="form.controls.phone.errors?.required">Please enter a value</small>
+                    <small *ngIf="form.controls.phone.errors?.pattern">This entry can only contains numbers</small>
+                    <small *ngIf="form.controls.phone.errors?.minlength">Name must be at least 6 numbers long.</small>
+                </div>
+            </div>
+
+            <div class="form__control">
+                <label>Email</label>
+                <input type="text" placeholder="Email" formControlName="email">
+
+                <div class="control__validation" *ngIf="form.controls.email.invalid && form.controls.email.touched">
+                    <small *ngIf="form.controls.email.errors?.required">Please enter a value</small>
+                    <small *ngIf="form.controls.email.errors?.email">Enter a valid email address</small>
+                </div>
+            </div>
+
+            <button class="form__btn" type="submit" [disabled]="form.invalid">Place order</button>
+        </form>
+    </div>
+
+    <ng-template #emptyCart>
+        <div class="container">
+            <h2>Please add items to cart</h2>
+        </div>
+    </ng-template>
+</div>
